@@ -19,6 +19,7 @@
 #include <stdio.h>
 
 #include "gf_main_window.h"
+#include "gf_gif.h"
 
 void activate_callback(GtkApplication *app, gpointer user_data) {
     GtkWidget *window;
@@ -27,6 +28,11 @@ void activate_callback(GtkApplication *app, gpointer user_data) {
 }
 
 int main(int argc, char *argv[]) {
+    struct gf_gif *gif = gf_read_gif(argv[1]);
+    printf("%s\n", gif->version);
+    printf("(%d, %d)\n", gif->canvas_width, gif->canvas_height);
+
+    return 0;
     GtkApplication *app;
     int status;
     app = gtk_application_new("org.bieber.gifree",
