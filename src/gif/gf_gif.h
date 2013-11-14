@@ -21,7 +21,8 @@
 
 enum gf_error_code {
     GF_ERROR_NONE,
-    GF_ERROR_BAD_HEADER
+    GF_ERROR_BAD_HEADER,
+    GF_ERROR_UNEXPECTED_EOF
 };
 
 struct gf_gif {
@@ -30,7 +31,13 @@ struct gf_gif {
     uint16_t canvas_width;
     uint16_t canvas_height;
 
-    unsigned int global_color_table_size;
+    uint8_t color_resolution;
+    uint8_t color_table_size;
+    uint32_t *color_table;
+
+    uint8_t sort_flag;
+    uint8_t background_color_index;
+    uint8_t pixel_aspect_ratio;
 };
 
 extern enum gf_error_code gf_error_state;

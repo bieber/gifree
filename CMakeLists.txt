@@ -30,4 +30,7 @@ list(REMOVE_DUPLICATES INCLUDE_DIRS)
 
 include_directories(${INCLUDE_DIRS})
 add_executable(gifree ${SOURCES})
+if(CMAKE_COMPILER_IS_GNUCC)
+  set_property( TARGET gifree APPEND_STRING PROPERTY COMPILE_FLAGS -Wall )
+endif(CMAKE_COMPILER_IS_GNUCC)
 target_link_libraries(gifree ${GTK3_LIBRARIES})

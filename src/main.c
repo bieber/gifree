@@ -28,19 +28,38 @@ void activate_callback(GtkApplication *app, gpointer user_data) {
 }
 
 int main(int argc, char *argv[]) {
+    int i;
     struct gf_gif *gif = gf_read_gif(argv[1]);
-    printf("%s\n", gif->version);
-    printf("(%d, %d)\n", gif->canvas_width, gif->canvas_height);
+    printf("Version: %s\n", gif->version);
+    printf("Dimensions: (%d, %d)\n", gif->canvas_width, gif->canvas_height);
+    printf("Colors: (%d, %d)\n", gif->color_resolution, gif->color_table_size);
+    printf("Sort: %d\n", gif->sort_flag);
+    printf("Color Table:\n");
+    for (i = 0; i < gif->color_table_size; i++) {
+        uint8_t *base = (uint8_t*)(gif->color_table + i);
+        printf(
+            "%3d| (%d, %d, %d, %d)\n",
+            i,
+            base[3],
+            base[2],
+            base[1],
+            base[0]
+        );
+    }
 
     return 0;
     GtkApplication *app;
     int status;
-    app = gtk_application_new("org.bieber.gifree",
-                              G_APPLICATION_FLAGS_NONE);
-    g_signal_connect(app,
-                     "activate",
-                     G_CALLBACK(activate_callback),
-                     NULL);
+    app = gtk_application_new(
+        "org.bieber.gifree",
+        G_APPLICATION_FLAGS_NONE
+    );
+    g_signal_connect(
+        app,
+        "activate",
+        G_CALLBACK(activate_callback),
+        NULL
+    );
     status = g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
     return (status);
