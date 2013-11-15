@@ -1,3 +1,5 @@
+#ifndef GF_GIF_FILE_CONSTANTS_H
+#define GF_GIF_FILE_CONSTANTS_H
 /*
  * This file is part of gifree.
  *
@@ -15,15 +17,22 @@
  * along with gifree.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
+#define GF_GIF_HEADER "GIF"
 
-#include "gf_gif.h"
+enum gf_gif_block_type {
+    GF_GIF_EXTENSION_BLOCK = 0x21,
+    GF_GIF_IMAGE_BLOCK = 0x2c,
+    GF_GIF_TRAILER = 0x3b
+};
 
-enum gf_error_code gf_error_state = GF_ERROR_NONE;
+enum gf_gif_extension_type {
+  GF_GIF_EXTENSION_GRAPHICS_CONTROL = 0xf9
+};
 
-void gf_gif_free(struct gf_gif *gif) {
-    if (gif->color_table) {
-        free(gif->color_table);
-    }
-    free(gif);
-}
+enum gf_gif_disposal_method {
+    GF_GIF_DISPOSAL_METHOD_IN_PLACE = 0x01,
+    GF_GIF_DISPOSAL_METHOD_CLEAR_CANVAS = 0x02,
+    GF_GIF_DISPOSAL_METHOD_PREVIOUS_FRAME = 0x03
+};
+
+#endif

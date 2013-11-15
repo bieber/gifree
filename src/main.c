@@ -29,7 +29,7 @@ void activate_callback(GtkApplication *app, gpointer user_data) {
 
 int main(int argc, char *argv[]) {
     int i;
-    struct gf_gif *gif = gf_read_gif(argv[1]);
+    struct gf_gif *gif = gf_gif_new_from_file(argv[1]);
     printf("Version: %s\n", gif->version);
     printf("Dimensions: (%d, %d)\n", gif->canvas_width, gif->canvas_height);
     printf("Colors: (%d, %d)\n", gif->color_resolution, gif->color_table_size);

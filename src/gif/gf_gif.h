@@ -22,7 +22,8 @@
 enum gf_error_code {
     GF_ERROR_NONE,
     GF_ERROR_BAD_HEADER,
-    GF_ERROR_UNEXPECTED_EOF
+    GF_ERROR_UNEXPECTED_EOF,
+    GF_ERROR_UNSUPPORTED_BLOCK_TYPE
 };
 
 struct gf_gif {
@@ -40,9 +41,19 @@ struct gf_gif {
     uint8_t pixel_aspect_ratio;
 };
 
+struct gf_gif_frame {
+    uint16_t x;
+    uint16_t y;
+    uint16_t w;
+    uint16_t h;
+    uint32_t *image_data;
+};
+
 extern enum gf_error_code gf_error_state;
 
+// Public interface functions
 enum gf_error_code gif_error();
-struct gf_gif *gf_read_gif(const char *filename);
+struct gf_gif *gf_gif_new_from_file(const char *filename);
+void gf_gif_free(struct gf_gif *gif);
 
 #endif
